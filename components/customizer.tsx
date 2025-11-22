@@ -49,13 +49,15 @@ const Customizer = () => {
     const [selectedSize, setSelectedSize] = useState("M");
     const [textInput, setTextInput] = useState("");
     const [hasDesign, setHasDesign] = useState(false);
+    const [removeBg, setRemoveBg] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (!canvasRef.current) return;
 
         const canvas = new FabricCanvas(canvasRef.current, {
             width: 200,
-            height: 300,
+            height: 250,
             backgroundColor: "transparent",
         });
 
@@ -103,43 +105,86 @@ const Customizer = () => {
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const imageUrl = e.target?.result as string;
+        setSelectedFile(file);
+        toast.success("Image selected! Click 'Add to Canvas' to proceed.");
+    };
 
-            FabricImage.fromURL(imageUrl).then((img) => {
-                if (!fabricCanvas) return;
+    const handleProcessImage = async () => {
+        if (!selectedFile) return;
 
-                // Scale image to fit nicely on the t-shirt
-                const maxWidth = 250;
-                const maxHeight = 250;
-                const scale = Math.min(maxWidth / img.width!, maxHeight / img.height!);
+        const file = selectedFile;
 
-                img.scale(scale);
-                img.set({
-                    left: fabricCanvas.width! / 2,
-                    top: fabricCanvas.height! / 2,
-                    originX: "center",
-                    originY: "center",
+        let imageUrl = "";
+
+        if (removeBg) {
+            const apiKey = process.env.NEXT_PUBLIC_REMOVE_BG_API_KEY;
+            if (!apiKey) {
+                toast.error("API Key for remove.bg is missing in .env.local");
+                return;
+            }
+
+            const toastId = toast.loading("Removing background...");
+
+            try {
+                const formData = new FormData();
+                formData.append("size", "auto");
+                formData.append("image_file", file);
+
+                const response = await fetch("https://api.remove.bg/v1.0/removebg", {
+                    method: "POST",
+                    headers: {
+                        "X-Api-Key": apiKey,
+                    },
+                    body: formData,
                 });
 
-                fabricCanvas.add(img);
-                fabricCanvas.setActiveObject(img);
+                if (!response.ok) {
+                    throw new Error("Failed to remove background");
+                }
 
-                // Bring all text objects to front
-                fabricCanvas.getObjects().forEach((obj) => {
-                    if (obj.type === 'text') {
-                        fabricCanvas.bringObjectToFront(obj);
-                    }
-                });
+                const blob = await response.blob();
+                imageUrl = URL.createObjectURL(blob);
+                toast.success("Background removed successfully!", { id: toastId });
+            } catch (error) {
+                console.error("Error removing background:", error);
+                toast.error("Failed to remove background. Using original image.", { id: toastId });
+                // Fallback to original image
+                imageUrl = URL.createObjectURL(file);
+            }
+        } else {
+            imageUrl = URL.createObjectURL(file);
+        }
 
-                fabricCanvas.renderAll();
-                setHasDesign(true);
-                toast.success("Pet photo uploaded! Adjust size and position as needed.");
+        FabricImage.fromURL(imageUrl).then((img) => {
+            if (!fabricCanvas) return;
+
+            // Scale image to fit nicely on the t-shirt
+            const maxWidth = 250;
+            const maxHeight = 250;
+            const scale = Math.min(maxWidth / img.width!, maxHeight / img.height!);
+
+            img.scale(scale);
+            img.set({
+                left: fabricCanvas.width! / 2,
+                top: fabricCanvas.height! / 2,
+                originX: "center",
+                originY: "center",
             });
-        };
 
-        reader.readAsDataURL(file);
+            fabricCanvas.add(img);
+            fabricCanvas.setActiveObject(img);
+
+            // Bring all text objects to front
+            fabricCanvas.getObjects().forEach((obj) => {
+                if (obj.type === 'text') {
+                    fabricCanvas.bringObjectToFront(obj);
+                }
+            });
+
+            fabricCanvas.renderAll();
+            setHasDesign(true);
+            toast.success("Pet photo uploaded! Adjust size and position as needed.");
+        });
     };
 
     const handleGalleryImageSelect = (imageSrc: { src: string }) => {
@@ -283,9 +328,9 @@ const Customizer = () => {
     };
 
     return (
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-2 max-w-6xl mx-auto">
             {/* Preview Section */}
-            <Card className="animate-slide-up">
+            <Card className="animate-slide-up w-full">
                 <CardHeader>
                     <CardTitle>Preview Playera</CardTitle>
                 </CardHeader>
@@ -300,7 +345,7 @@ const Customizer = () => {
                             />
 
                             {/* Canvas overlay positioned on the t-shirt */}
-                            <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-[200px] aspect-[4/5]">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-[200px] aspect-[4/5]">
                                 <canvas ref={canvasRef} className="w-full h-full border-2 border-dashed border-red-500" />
                             </div>
                         </div>
@@ -355,19 +400,51 @@ const Customizer = () => {
                             onChange={handleFileUpload}
                             className="hidden"
                         />
-                        <Button
-                            onClick={() => fileInputRef.current?.click()}
-                            className="w-full"
-                            variant="outline"
-                        >
-                            <Upload className="w-4 h-4 mr-2" />
-                            Choose Photo
-                        </Button>
+                        <div className="flex flex-col gap-2">
+                            <Button
+                                onClick={() => fileInputRef.current?.click()}
+                                className="w-full"
+                                variant="outline"
+                            >
+                                <Upload className="w-4 h-4 mr-2" />
+                                {selectedFile ? "Change Photo" : "Choose Photo"}
+                            </Button>
+
+                            {selectedFile && (
+                                <div className="text-sm text-muted-foreground text-center truncate px-2">
+                                    {selectedFile.name}
+                                </div>
+                            )}
+
+                            <div className="flex items-center space-x-2 pt-2 justify-center">
+                                <input
+                                    type="checkbox"
+                                    id="remove-bg"
+                                    checked={removeBg}
+                                    onChange={(e) => setRemoveBg(e.target.checked)}
+                                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                />
+                                <Label htmlFor="remove-bg" className="text-sm font-normal cursor-pointer">
+                                    Quitar fondo (Powered by remove.bg)
+                                </Label>
+                            </div>
+
+                            <Button
+                                onClick={handleProcessImage}
+                                disabled={!selectedFile}
+                                className="w-full mt-2"
+                            >
+                                Add to Canvas
+                            </Button>
+                        </div>
                     </div>
 
                     {/* Gallery Section */}
                     <div className="space-y-2">
-                        <Label>O Elige un diseño de la galería</Label>
+                        <div className="text-center items-center justify-center flex font-semibold py-6">
+                            O Elige un diseño de la galería
+                        </div>
+
                         <div className="grid grid-cols-3 gap-2">
                             {GALLERY_IMAGES.map((image) => (
                                 <button
