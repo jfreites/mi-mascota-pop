@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { type User } from '@supabase/supabase-js'
 
+import Avatar from './avatar'
+
 // ...
 
 export default function AccountForm({ user }: { user: User | null }) {
@@ -35,7 +37,7 @@ export default function AccountForm({ user }: { user: User | null }) {
                 setAvatarUrl(data.avatar_url)
             }
         } catch (error) {
-            alert('Error loading user data!')
+            alert('Error loading user data! ')
         } finally {
             setLoading(false)
         }
@@ -78,7 +80,15 @@ export default function AccountForm({ user }: { user: User | null }) {
     return (
         <div className="form-widget">
 
-            {/* ... */}
+            <Avatar
+                uid={user?.id ?? null}
+                url={avatar_url}
+                size={250}
+                onUpload={(url) => {
+                    setAvatarUrl(url)
+                    updateProfile({ fullname, username, website, avatar_url: url })
+                }}
+            />
 
             <div>
                 <label htmlFor="email">Email</label>
@@ -123,7 +133,7 @@ export default function AccountForm({ user }: { user: User | null }) {
             </div>
 
             <div>
-                <form action="/auth/signout" method="post">
+                <form action="/api/auth/signout" method="post">
                     <button className="button block" type="submit">
                         Sign out
                     </button>
