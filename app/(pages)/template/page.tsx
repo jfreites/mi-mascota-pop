@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
-import Customizer from "@/components/customizer";
-import Link from "next/link";
 import Navbar from "@/components/navbar";
+import TemplateCustomizer from "@/components/template-customizer";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default async function CustomizePage() {
-
+export default function TemplatePage() {
     return (
         <>
             <Navbar />
@@ -21,14 +20,14 @@ export default async function CustomizePage() {
 
                     <div className="text-center mb-8 animate-fade-in">
                         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                            Personaliza tu playera con tu propio diseño
+                            Playera Personalizada "El Rey de la Casa" Unisex
                         </h1>
                         <p className="text-lg text-muted-foreground">
                             Crea una playera única para ti o para alguien que te importe.
                         </p>
                     </div>
 
-                    <Customizer />
+                    <TemplateCustomizer />
                 </div>
             </div>
         </>

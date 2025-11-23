@@ -44,6 +44,7 @@ const GALLERY_IMAGES = [
 const Customizer = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const controlsRef = useRef<HTMLDivElement>(null);
     const [fabricCanvas, setFabricCanvas] = useState<FabricCanvas | null>(null);
     const [selectedColor, setSelectedColor] = useState(TSHIRT_COLORS[0]);
     const [selectedSize, setSelectedSize] = useState("M");
@@ -79,11 +80,13 @@ const Customizer = () => {
                 const canvasWrapper = canvasRef.current.parentElement;
                 const target = event.target as Node;
 
-                const isClickInside = canvasWrapper
+                const isClickInsideCanvas = canvasWrapper
                     ? canvasWrapper.contains(target)
                     : canvasRef.current.contains(target);
 
-                if (!isClickInside) {
+                const isClickInsideControls = controlsRef.current?.contains(target);
+
+                if (!isClickInsideCanvas && !isClickInsideControls) {
                     fabricCanvas.discardActiveObject();
                     fabricCanvas.requestRenderAll();
                 }
@@ -385,9 +388,13 @@ const Customizer = () => {
             </Card>
 
             {/* Controls Section */}
-            <Card className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
+            <Card className="animate-slide-up" style={{ animationDelay: "0.1s" }} ref={controlsRef}>
                 <CardHeader>
-                    <CardTitle>Herramientas de Personalización</CardTitle>
+                    <CardTitle>
+                        <h2 className="text-2xl font-bold">
+                            Playera Personalizada DIY Unisex
+                        </h2>
+                    </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     {/* Upload Section */}

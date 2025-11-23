@@ -1,71 +1,78 @@
 [
   {
     "id": "1",
-    "name": "Pawsome Dad T-Shirt",
+    "name": "Playera Personalizada DIY Unisex",
     "category": "t-shirt",
     "price": 29.99,
     "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80",
     "description": "Celebrate your love for your furry friend with this comfy tee",
-    "colors": ["white", "black", "gray", "navy"],
-    "sizes": ["XS", "S", "M", "L", "XL", "2XL"]
+    "colors": [
+      "white",
+      "black",
+      "gray",
+      "navy"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "slug": "customize"
   },
   {
     "id": "2",
-    "name": "Cat Mom Graphic Tee",
+    "name": "Playera Personalizada 'El Rey de la Casa' Unisex",
     "category": "t-shirt",
     "price": 29.99,
     "image": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&q=80",
     "description": "Show off your cat mom pride in style",
-    "colors": ["white", "pink", "lavender", "mint"],
-    "sizes": ["XS", "S", "M", "L", "XL", "2XL"]
+    "colors": [
+      "white",
+      "pink",
+      "lavender",
+      "mint"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "slug": "template"
   },
   {
     "id": "3",
-    "name": "Dog Life is Good Hoodie",
-    "category": "t-shirt",
-    "price": 49.99,
-    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&q=80",
-    "description": "Stay cozy while repping your pup love",
-    "colors": ["gray", "black", "navy", "burgundy"],
-    "sizes": ["S", "M", "L", "XL", "2XL"]
-  },
-  {
-    "id": "4",
-    "name": "Rescue is My Favorite Breed",
-    "category": "t-shirt",
-    "price": 27.99,
-    "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500&q=80",
-    "description": "Support rescue pets with this meaningful tee",
-    "colors": ["white", "sage", "coral", "sky"],
-    "sizes": ["XS", "S", "M", "L", "XL"]
-  },
-  {
-    "id": "5",
-    "name": "Pet Hair is My Accessory",
-    "category": "t-shirt",
-    "price": 24.99,
-    "image": "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=500&q=80",
-    "description": "Funny and relatable tee for all pet parents",
-    "colors": ["white", "black", "cream"],
-    "sizes": ["S", "M", "L", "XL", "2XL"]
-  },
-  {
-    "id": "6",
     "name": "Paw Print Tote Bag",
     "category": "accessory",
     "price": 19.99,
     "image": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&q=80",
     "description": "Durable canvas tote with adorable paw prints",
-    "colors": ["natural", "black", "navy"]
+    "colors": [
+      "natural",
+      "black",
+      "navy"
+    ],
+    "slug": "paw-print-tote-bag"
   },
   {
-    "id": "7",
+    "id": "4",
     "name": "Dog Dad Baseball Cap",
     "category": "accessory",
     "price": 22.99,
     "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&q=80",
     "description": "Classic cap with embroidered dog dad text",
-    "colors": ["khaki", "black", "navy", "white"]
+    "colors": [
+      "khaki",
+      "black",
+      "navy",
+      "white"
+    ],
+    "slug": "dog-dad-baseball-cap"
   },
   {
     "id": "8",
@@ -74,24 +81,25 @@
     "price": 16.99,
     "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500&q=80",
     "description": "Vintage-style enamel mug for cat lovers",
-    "colors": ["white", "black", "turquoise"]
+    "colors": [
+      "white",
+      "black",
+      "turquoise"
+    ],
+    "slug": "meow-power-enamel-mug"
   },
   {
     "id": "9",
     "name": "Pet Parent Keychain",
     "category": "accessory",
     "price": 12.99,
-    "image": "https://images.unsplash.com/photo-1611095564312-1b555fb6c5e8?w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1673970091565-7d10312a4e34?q=80&w=1470",
     "description": "Cute keychain with customizable pet name tag",
-    "colors": ["gold", "silver", "rose-gold"]
-  },
-  {
-    "id": "10",
-    "name": "Furry Friend Phone Case",
-    "category": "accessory",
-    "price": 24.99,
-    "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500&q=80",
-    "description": "Protective case with adorable pet illustrations",
-    "colors": ["clear", "pink", "blue", "black"]
+    "colors": [
+      "gold",
+      "silver",
+      "rose-gold"
+    ],
+    "slug": "pet-parent-keychain"
   }
 ]
