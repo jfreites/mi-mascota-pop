@@ -23,13 +23,13 @@ import pastorAleman from "@/assets/pets/pastor-aleman.png";
 import grayTshirt from "@/assets/playera-gray.png";
 import whiteTshirt from "@/assets/playera-white.png";
 import blackTshirt from "@/assets/playera-black.png";
-import blueTshirt from "@/assets/tshirt-navy.png";
+//import blueTshirt from "@/assets/tshirt-navy.png";
 
 const TSHIRT_COLORS = [
     { name: "Blanco", textColor: "#000000", image: whiteTshirt },
-    { name: "Negro", textColor: "#ffffff", image: blackTshirt },
-    { name: "Gris", textColor: "#373b41ff", image: grayTshirt },
-    { name: "Azul", textColor: "#ffffff", image: blueTshirt },
+    { name: "Negro", textColor: "#f7d113ff", image: blackTshirt },
+    { name: "Gris", textColor: "#2f3236ff", image: grayTshirt },
+    //{ name: "Azul", textColor: "#dededeff", image: blueTshirt },
 ];
 
 const SIZES = ["S", "M", "L", "XL", "2XL"];
@@ -42,13 +42,17 @@ const DOG_HEADS = [
     { name: "Pastor Aleman", src: pastorAleman },
 ];
 
+const DEFAULT_PET_NAME = "El Nombre";
+const DEFAULT_PHRASE = "El Rey de la Casa";
+
 const TemplateCustomizer = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [fabricCanvas, setFabricCanvas] = useState<FabricCanvas | null>(null);
     const [selectedColor, setSelectedColor] = useState(TSHIRT_COLORS[0]);
     const [selectedSize, setSelectedSize] = useState("M");
-    const [petName, setPetName] = useState("El Nombre");
+    const [petName, setPetName] = useState(DEFAULT_PET_NAME);
     const [selectedHead, setSelectedHead] = useState(DOG_HEADS[0]);
+    const [isMale, setIsMale] = useState(true);
 
     // Initialize Canvas
     useEffect(() => {
@@ -119,7 +123,7 @@ const TemplateCustomizer = () => {
         });
 
         // 3. Bottom Text: Fixed Phrase
-        const bottomText = new IText("¡EL REY DE LA CASA!", {
+        const bottomText = new IText(DEFAULT_PHRASE.toUpperCase(), {
             left: fabricCanvas.width! / 2,
             top: fabricCanvas.height! - 30,
             originX: "center",
