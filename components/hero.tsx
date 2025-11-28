@@ -3,45 +3,34 @@
 import { Sparkles, Palette, PawPrint } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Hero = () => {
     const router = useRouter();
 
     return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-purple-500 via-blue-600 to-rose-300 py-20 px-6">
-        <div className="container mx-auto text-center relative z-10">
-            <div className="animate-bounce-slow inline-block mb-4">
-                <PawPrint className="w-16 h-16 text-white fill-white" />
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
-                Mi Mascota Pop
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in">
-                Playeras y accesorios personalizados para amantes de mascotas que quieren mostrar su familia peluda
-            </p>
-            <div className="flex gap-4 justify-center flex-wrap animate-fade-in">
-                <Button
-                    size="lg"
-                    className="bg-white text-primary hover:bg-white/90 hover:scale-105 transition-transform group"
-                >
-                    Shop Now
-                    <Sparkles className="ml-2 w-5 h-5 group-hover:animate-wiggle" />
-                </Button>
-                <Button
-                    size="lg"
-                    onClick={() => router.push("/customize")}
-                    className="bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:scale-105 transition-transform group"
-                >
-                    <Palette className="mr-2 w-5 h-5 group-hover:animate-wiggle" />
-                    Custom Design
-                </Button>
-            </div>
-        </div>
+        <header className="container mx-auto px-4 pt-8 pb-12 text-center">
+            <div className="relative inline-block group cursor-pointer animate-float">
+                <div className="absolute inset-0 bg-yellow-200 rounded-full blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-bounce-slow"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-bounce-slow" style={{ animationDelay: "1s" }}></div>
-    </section>
+                <h1 className="relative text-7xl md:text-9xl font-bold tracking-tight leading-tight">
+                    <Image src="/mi-mascota-pop-logo.png" alt="Logo" width={350} height={350} />
+                </h1>
+            </div>
+
+            <p className="mt-6 text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto font-medium">
+                Playeras Personalizadas, Accesorios y más para lucir a tu compañero de cuatro patas como un Pop Star!
+            </p>
+
+            <div className="mt-8 flex justify-center gap-4">
+                <button className="bg-pop-pink hover:bg-pink-500 text-white text-lg font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-pop-pink/50 hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    Dog Lover
+                </button>
+                <button className="bg-pop-cyan hover:bg-cyan-400 text-white text-lg font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-pop-cyan/50 hover:-translate-y-1 transition duration-300 cursor-pointer">
+                    Cat Lover
+                </button>
+            </div>
+        </header>
     );
 };
 

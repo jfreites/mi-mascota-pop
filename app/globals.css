@@ -8,6 +8,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto-sans);
   --font-mono: var(--font-noto-sans-mono);
+  --font-chewy: var(--font-chewy);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,14 +42,23 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --font-fredoka: var(--font-fredoka);
+
+  /* Custom Pop Colors */
+  --color-pop-pink: #FF6B9B;
+  --color-pop-yellow: #FFD93D;
+  --color-pop-cyan: #4DEDF5;
+  --color-pop-purple: #9D4EDD;
+  --color-pop-bg: #FFFDF5;
 }
 
 .button {
-    @apply text-black font-bold py-2 px-4 rounded;
+  @apply text-black font-bold py-2 px-4 rounded;
 }
 
 .primary {
-    @apply bg-blue-500 text-white;
+  @apply bg-blue-500 text-white;
 }
 
 :root {
@@ -124,7 +134,95 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
+    background-color: var(--color-pop-bg);
     @apply bg-background text-foreground;
   }
+}
+
+.apparel-color-natural {
+  @apply bg-[#ebdcdc];
+}
+
+.apparel-color-black {
+  @apply bg-[#1a1a1a];
+}
+
+.apparel-color-navy {
+  @apply bg-[#1e3a8a];
+}
+
+.apparel-color-white {
+  @apply bg-[#ffffff];
+}
+
+.apparel-color-gray {
+  @apply bg-[#6b7280];
+}
+
+.apparel-color-green {
+  @apply bg-[#b3e6b3];
+}
+
+.apparel-color-khaki {
+  @apply bg-[#f5f5f5];
+}
+
+.apparel-color-silver {
+  @apply bg-[#c0bfc0];
+}
+
+.apparel-color-rose-gold {
+  @apply bg-[#de648a];
+}
+
+.apparel-color-gold {
+  @apply bg-[#e0ba70];
+}
+
+/* Custom animation for the floating blobs */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes bob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-bob {
+  animation: bob 3s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Custom Quantity Input styles */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

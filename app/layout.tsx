@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans, Noto_Sans_Mono, Chewy } from "next/font/google";
+import { Noto_Sans, Noto_Sans_Mono, Chewy, Fredoka } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner"
@@ -20,6 +20,11 @@ const chewy = Chewy({
   subsets: ["latin"],
 });
 
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Mi Mascota Pop",
   description: "Productos personalizados para pet lovers. Playeras, gorras y accesorios.",
@@ -33,7 +38,7 @@ export default async function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${notoSans.variable} ${notoSansMono.variable} ${chewy.variable} antialiased `}
+        className={`${notoSans.variable} ${notoSansMono.variable} ${chewy.variable} ${fredoka.variable} antialiased overflow-x-hidden relative text-gray-800`}
       >
         {children}
         <Toaster />

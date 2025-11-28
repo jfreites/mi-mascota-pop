@@ -7,7 +7,7 @@ export default function TemplatePage() {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen py-12 px-6 bg-gradient-to-t from-purple-700 to-blue-200">
+            <div className="min-h-screen py-12 px-6 bg-gradient-to-t from-primary/20 to-primary/10">
                 <div className="container mx-auto">
                     <Button
                         variant="outline"

@@ -9,7 +9,7 @@ export default async function Navbar() {
         <div className="navbar flex justify-between items-center p-4 bg-slate-700 text-white">
             <div>
                 <Link href={'/'}>
-                    <h1 className="text-2xl font-semibold dark:invert">Mi Mascota <span className="text-fuchsia-800">Pop</span></h1>
+                    <h1 className="text-2xl font-semibold dark:invert">Mi Mascota <span className="text-blue-500">Pop</span></h1>
                 </Link>
             </div>
             <nav>
