@@ -13,7 +13,7 @@ export default function CartPage() {
                 <a href="/" className="text-3xl font-bold tracking-tight hover:scale-105 transition duration-300 font-fredoka">
                     <span className="text-pop-pink">Mi</span> <span className="text-pop-yellow">Mascota</span> <span className="text-pop-cyan">Pop</span>
                 </a>
-                <a href="/catalog" className="mt-4 md:mt-0 text-gray-500 font-bold hover:text-pop-purple transition">Continuar Comprando</a>
+                <a href="/catalog" className="mt-4 md:mt-0 text-pop-purple font-bold text-lg hover:underline decoration-wavy underline-offset-4">Continuar Comprando</a>
             </nav>
 
 

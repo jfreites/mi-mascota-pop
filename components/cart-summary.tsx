@@ -18,6 +18,7 @@ import mastercard from "@/assets/payments/mastercard.svg";
 import visa from "@/assets/payments/visa.svg";
 import paypal from "@/assets/payments/paypal.svg";
 import mercadopago from "@/assets/payments/mercadopago.png";
+import cartEmpty from "@/assets/cart-empty.png";
 
 const CartSummary = () => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -87,6 +88,16 @@ const CartSummary = () => {
         updateCart(updatedCart);
     };
 
+    if (cartItems.length === 0) {
+        return (
+            <div className="py-20 flex flex-col items-center justify-center">
+                <Image src={cartEmpty} alt="Carrito Vacío" width={200} height={200} />
+                <p className="text-4xl font-bold text-gray-600">Tu carrito está vacío</p>
+                <a href="/catalog" className="py-6 text-pop-purple font-bold text-lg hover:underline decoration-wavy underline-offset-4">Ver Catálogo</a>
+            </div>
+        )
+    }
+
     return (
         <main className="container mx-auto px-4 py-8">
             <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Tu carrito está lleno de color! 🛍️</h1>
@@ -95,12 +106,6 @@ const CartSummary = () => {
 
                 {/* Cart Items List */}
                 <div className="flex-1 space-y-6">
-
-                    {cartItems.length === 0 && (
-                        <div className="text-center">
-                            <p className="text-gray-600">Tu carrito está vacío</p>
-                        </div>
-                    )}
 
                     {cartItems.map((item, index) => {
                         return (

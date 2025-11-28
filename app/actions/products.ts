@@ -48,11 +48,10 @@ export async function getProductBySlug(slug: string) {
   const supabase = await createClient();
 
   try {
-    const { data: product, error } = await supabase
+    const { data, error } = await supabase
       .from("products")
-      .select("*, product_images(*)")
+      .select(`*, product_images(id, alt_text, image_url, display_order)`)
       .eq("slug", slug)
-      .order("created_at", { ascending: false })
       .single();
 
     if (error) {
@@ -60,7 +59,7 @@ export async function getProductBySlug(slug: string) {
       return null;
     }
 
-    return product as Product;
+    return data as Product;
   } catch (error) {
     console.error("Unexpected error fetching product:", error);
     return null;

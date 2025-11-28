@@ -34,7 +34,7 @@ const ProductsShowcase = ({ products }: ProductsShowcaseProps) => {
                                 <div className="flex items-center justify-between">
                                     <span className="text-2xl font-bold text-pop-pink">${product.price}</span>
                                     <button className="w-10 h-10 bg-gray-100 hover:bg-pop-pink hover:text-white rounded-full flex items-center justify-center transition-colors cursor-pointer">
-                                        <Link href={`/products/${product.slug}`}>
+                                        <Link href={`/product/${product.slug}`}>
                                             <Plus className="size-5" />
                                         </Link>
                                     </button>
