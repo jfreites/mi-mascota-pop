@@ -25,7 +25,7 @@ export default async function LandingPage() {
                         <div className="bg-white p-3 rounded-full shadow-lg border-2 border-transparent group-hover:border-pop-yellow transition">
                             <ShoppingBag className="w-6 h-6 text-gray-700" />
                         </div>
-                        <span className="absolute -top-1 -right-1 bg-pop-pink text-white text-xs font-bold size-5 flex items-center justify-center rounded-full">2</span>
+                        <span className="absolute -top-1 -right-1 bg-pop-pink text-white text-xs font-bold size-5 flex items-center justify-center rounded-full">0</span>
                     </a>
                 </div>
             </nav>

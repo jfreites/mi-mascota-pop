@@ -1,15 +1,53 @@
 "use client";
 
 import { useState } from "react";
-
+import { CartItem, useCart } from "@/hooks/use-cart";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import { Product } from "@/app/actions/products";
-import PersonalizationStudio from "@/components/product/personalization-studio";
+import PersonalizationStudio from "@/components/shop/product/personalization-studio";
 
-
-export default function ProductView({ product }: { product: Product }) {
-
-    const [selectedColor, setSelectedColor] = useState("#6b7280");
+export default function ProductDetails({ product }: { product: Product }) {
+    const [selectedColor, setSelectedColor] = useState("purple");
     const [selectedSize, setSelectedSize] = useState("L");
+    const [quantity, setQuantity] = useState(1);
+
+    const { addToCart } = useCart();
+
+    const handleAddToCart = () => {
+        /*
+        const designData = {
+            canvasState: null,
+            previewImage: null,
+            product_id: product.id,
+            product_name: product.name,
+            product_price: product.price,
+            product_image: product.image,
+            color: selectedColor,
+            size: selectedSize,
+            timestamp: new Date().toISOString(),
+        };
+        */
+
+        // Get existing cart items from localStorage
+        //const existingCart = localStorage.getItem("customTshirtCart");
+        //const cartItems = existingCart ? JSON.parse(existingCart) : [];
+
+        // Add new design to cart
+        //cartItems.push(designData);
+        //localStorage.setItem("customTshirtCart", JSON.stringify(cartItems));
+        const cartItem: CartItem = {
+            id: product.id,
+            previewImage: product.image,
+            name: product.name,
+            size: selectedSize,
+            color: selectedColor,
+            price: product.price,
+        };
+
+        addToCart(cartItem);
+        toast.success("¡Producto agregado al carrito!");
+    };
 
     return (
         <main className="container mx-auto px-4 py-6 mb-16">
@@ -19,7 +57,7 @@ export default function ProductView({ product }: { product: Product }) {
                 <div className="space-y-6">
                     {/* Main Image */}
                     <div className="relative w-full aspect-square bg-white rounded-[2.5rem] shadow-xl overflow-hidden border-4 border-white">
-                        <img src={product.image} alt="Rainbow Bandana Main" className="object-cover w-full h-full hover:scale-105 transition duration-700" />
+                        <img src={product.image} alt={product.name} className="object-cover w-full h-full hover:scale-105 transition duration-700" />
 
                         <div className="absolute top-6 left-6 flex gap-2">
                             <span className="bg-pop-yellow text-gray-900 font-bold px-4 py-2 rounded-full shadow-sm">New Arrival</span>
@@ -60,28 +98,47 @@ export default function ProductView({ product }: { product: Product }) {
 
                     {/* Standard Selectors */}
                     <div className="space-y-6">
-                        {/* Size */}
-                        <div>
-                            <label className="block text-gray-700 font-bold mb-3 text-lg">Selecciona Talla:</label>
-                            <div className="flex gap-3">
-                                <button className="w-14 h-14 rounded-xl border-2 border-gray-200 font-bold text-gray-500 hover:border-pop-cyan hover:text-pop-cyan hover:bg-cyan-50 transition cursor-pointer">S</button>
-                                <button className="w-14 h-14 rounded-xl border-2 border-pop-cyan bg-cyan-50 font-bold text-pop-cyan shadow-sm cursor-pointer ring-2 ring-pop-cyan/20">M</button>
-                                <button className="w-14 h-14 rounded-xl border-2 border-gray-200 font-bold text-gray-500 hover:border-pop-cyan hover:text-pop-cyan hover:bg-cyan-50 transition cursor-pointer">L</button>
-                                <button className="w-14 h-14 rounded-xl border-2 border-gray-200 font-bold text-gray-500 hover:border-pop-cyan hover:text-pop-cyan hover:bg-cyan-50 transition cursor-pointer">XL</button>
+                        {/* Color */}
+                        {product.colors && (
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-3 text-lg">Selecciona Color:</label>
+                                <div className="flex gap-4">
+                                    <button onClick={() => setSelectedColor("rainbow")} className={`w-12 h-12 rounded-full bg-gradient-to-br from-pop-pink via-pop-yellow to-pop-cyan hover:ring-offset-2 transform scale-110 cursor-pointer ${selectedColor === "rainbow" ? "ring-pop-pink ring-4 shadow-lg ring-offset-2" : ""}`} aria-label="Rainbow"></button>
+                                    <button onClick={() => setSelectedColor("pink")} className={`w-12 h-12 rounded-full bg-pop-pink hover:ring-4 hover:ring-offset-2 hover:ring-pop-pink/50 transition duration-300 cursor-pointer shadow-md ${selectedColor === "pink" ? "ring-pop-pink ring-4 shadow-lg ring-offset-2" : ""}`} aria-label="Pink"></button>
+                                    <button onClick={() => setSelectedColor("cyan")} className={`w-12 h-12 rounded-full bg-pop-cyan hover:ring-4 hover:ring-offset-2 hover:ring-pop-cyan/50 transition duration-300 cursor-pointer shadow-md ${selectedColor === "cyan" ? "ring-pop-cyan ring-4 shadow-lg ring-offset-2" : ""}`} aria-label="Cyan"></button>
+                                    <button onClick={() => setSelectedColor("purple")} className={`w-12 h-12 rounded-full bg-pop-purple hover:ring-4 hover:ring-offset-2 hover:ring-pop-purple/50 transition duration-300 cursor-pointer shadow-md ${selectedColor === "purple" ? "ring-pop-purple ring-4 shadow-lg ring-offset-2" : ""}`} aria-label="Purple"></button>
+                                </div>
                             </div>
-                        </div>
+                        )}
+
+                        {/* Size */}
+                        {product.sizes && (
+                            <div>
+                                <label className="block text-gray-700 font-bold mb-3 text-lg">Selecciona Talla:</label>
+                                <div className="flex gap-3">
+                                    {product.sizes.map((size) => (
+                                        <button
+                                            key={size}
+                                            onClick={() => setSelectedSize(size)}
+                                            className={`w-14 h-14 rounded-xl border-2 ${selectedSize === size ? "border-pop-cyan bg-cyan-50 text-pop-cyan shadow-sm ring-2 ring-pop-cyan/20" : "border-gray-200 text-gray-500 transition hover:text-pop-cyan hover:bg-cyan-50"} font-bold cursor-pointer`}>
+                                            {size}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Quantity & Add to Cart */}
                         <div className="flex flex-col sm:flex-row gap-4 pt-2">
                             {/* Quantity Stepper */}
                             <div className="flex items-center bg-white border-2 border-gray-200 rounded-full w-fit px-2 py-1 shadow-sm">
                                 <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-pop-pink font-bold text-xl cursor-pointer transition">-</button>
-                                <input type="number" value="1" className="w-12 text-center font-bold text-lg text-gray-800 focus:outline-none" />
+                                <input type="number" onChange={(e) => setQuantity(parseInt(e.target.value))} value={quantity} className="w-12 text-center font-bold text-lg text-gray-800 focus:outline-none" />
                                 <button className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-pop-cyan font-bold text-xl cursor-pointer transition">+</button>
                             </div>
 
                             {/* CTA Button */}
-                            <button className="flex-1 bg-gradient-to-r from-pop-pink to-purple-500 hover:to-pop-pink text-white text-xl font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-pop-pink/40 hover:-translate-y-1 transition duration-300 cursor-pointer flex items-center justify-center gap-2">
+                            <button onClick={handleAddToCart} className="flex-1 bg-gradient-to-r from-pop-pink to-purple-500 hover:to-pop-pink text-white text-xl font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-pop-pink/40 hover:-translate-y-1 transition duration-300 cursor-pointer flex items-center justify-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                                 </svg>
@@ -111,6 +168,6 @@ export default function ProductView({ product }: { product: Product }) {
                     </div>
                 </div>
             </div>
-        </main>
+        </main >
     );
 }
