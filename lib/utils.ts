@@ -33,11 +33,13 @@ export function decimalAdjust(type: string, value: number, exp: number) {
   if (exp % 1 !== 0 || Number.isNaN(value)) {
     return NaN;
   } else if (exp === 0) {
-    return Math[type](value);
+    return Math[type as "round" | "floor" | "ceil"](value);
   }
   const [magnitude, exponent = 0] = value.toString().split("e");
-  const adjustedValue = Math[type](`${magnitude}e${exponent - exp}`);
+  const adjustedValue = Math[type as "round" | "floor" | "ceil"](
+    Number(`${magnitude}e${Number(exponent) - Number(exp)}`)
+  );
   // Shift back
   const [newMagnitude, newExponent = 0] = adjustedValue.toString().split("e");
-  return Number(`${newMagnitude}e${Number(newExponent) + exp}`);
+  return Number(`${newMagnitude}e${Number(newExponent) + Number(exp)}`);
 }

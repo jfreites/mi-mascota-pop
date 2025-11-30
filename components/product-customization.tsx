@@ -32,17 +32,17 @@ const colors = [
 const sizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 
 const ProductCustomization = ({
-                                  onImageUpload,
-                                  onTextChange,
-                                  selectedColor,
-                                  onColorChange,
-                                  selectedSize,
-                                  onSizeChange,
-                                  imagePosition,
-                                  onImagePositionChange,
-                                  hasImage,
-                                    product,
-                              }: ProductCustomizationProps) => {
+    onImageUpload,
+    onTextChange,
+    selectedColor,
+    onColorChange,
+    selectedSize,
+    onSizeChange,
+    imagePosition,
+    onImagePositionChange,
+    hasImage,
+    product,
+}: ProductCustomizationProps) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [customText, setCustomText] = useState("");
     const [loading, setLoading] = useState(false);
@@ -112,7 +112,7 @@ const ProductCustomization = ({
             {/* Product Title and Rating */}
             <div>
                 <h1 className="text-2xl font-bold text-foreground mb-2">
-                    {product.title}
+                    {product.name}
                 </h1>
                 <div className="flex items-center gap-2">
                     <div className="flex">
@@ -208,16 +208,16 @@ const ProductCustomization = ({
                             <label htmlFor="pet_image">Imagen de la Mascota</label>
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
                                 <div>
-                                    <img src="/img.png" alt="image 1"/>
+                                    <img src="/img.png" alt="image 1" />
                                 </div>
                                 <div>
-                                    <img src="/dog1.webp" alt="image 1"/>
+                                    <img src="/dog1.webp" alt="image 1" />
                                 </div>
                                 <div>
-                                    <img src="/dog2.webp" alt="image 1"/>
+                                    <img src="/dog2.webp" alt="image 1" />
                                 </div>
                                 <div>
-                                    <img src="/dog3.webp" alt="image 1"/>
+                                    <img src="/dog3.webp" alt="image 1" />
                                 </div>
                             </div>
                         </div>
@@ -233,11 +233,10 @@ const ProductCustomization = ({
                         <button
                             key={color.value}
                             onClick={() => onColorChange(color.value)}
-                            className={`w-10 h-10 rounded-full border-2 transition-all ${
-                                selectedColor === color.value
+                            className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === color.value
                                     ? "border-primary scale-110"
                                     : "border-border hover:border-primary/50"
-                            }`}
+                                }`}
                             style={{ backgroundColor: color.value }}
                             title={color.name}
                         />

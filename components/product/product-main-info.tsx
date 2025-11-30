@@ -1,9 +1,9 @@
 "use client";
 
-import type Product from "@/types/product.type";
 import { Package, Star, Truck } from "lucide-react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import { Product } from "@/app/actions/products";
 
 const colors = [
     { name: "Blanco", value: "#ffffff" },
@@ -31,8 +31,6 @@ export default function ProductMainInfo({
     selectedSize,
     onSizeChange,
     product }: ProductInfoProps) {
-
-    console.log(product);
 
     return (
         <div className="space-y-6">
@@ -73,9 +71,9 @@ export default function ProductMainInfo({
             */}
 
             <div className="space-y-3">
-                <Label>Color: {product.colors.find(color => color === selectedColor)}</Label>
+                <Label>Color: {product.colors && product.colors.find(color => color === selectedColor)}</Label>
                 <div className="flex flex-wrap gap-2">
-                    {product.colors.map((color) => (
+                    {product.colors && product.colors.map((color) => (
                         <button
                             key={color}
                             onClick={() => onColorChange(color)}
