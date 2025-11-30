@@ -1,5 +1,5 @@
 import Footer from "@/components/layout/footer";
-import PersonalizationStudio from "@/components/product/personalization-studio";
+import PersonalizationStudio from "@/components/shop/product/personalization-studio";
 
 export default function SampleProduct() {
 

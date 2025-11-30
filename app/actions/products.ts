@@ -23,13 +23,14 @@ export type Product = {
   }[];
 };
 
-export async function getProducts() {
+export async function getProducts(limit: number = 10) {
   const supabase = await createClient();
 
   try {
     const { data: products, error } = await supabase
       .from("products")
       .select("*, product_images(*)")
+      .limit(limit)
       .order("created_at", { ascending: false });
 
     if (error) {
