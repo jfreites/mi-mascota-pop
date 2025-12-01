@@ -37,7 +37,7 @@ export default async function LandingPage() {
                 </div>
 
                 <div className="py-12 flex flex-col items-center justify-center">
-                    <h2 className="text-5xl uppercase font-bold text-pop-pink">Próximamente...</h2>
+                    <h2 className="text-4xl md:text-5xl uppercase font-bold text-pop-pink">Próximamente...</h2>
                 </div>
 
                 <Newsletter />
